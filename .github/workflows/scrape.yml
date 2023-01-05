@@ -13,7 +13,7 @@ jobs:
       - name: Scrape table
         run: |
           curl https://cdm.unfccc.int/Registry/vcnotices/eois_list |
-            pup '#registry table' > table.html
+            $GOPATH/bin/pup '#registry table' > table.html
       - name: Commit and push if it changed
         run: |-
           git config user.name "Automated"
