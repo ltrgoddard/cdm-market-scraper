@@ -8,12 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
       - name: Install pup
         run: go install github.com/ericchiang/pup@latest
       - name: Scrape table
         run: |
           curl https://cdm.unfccc.int/Registry/vcnotices/eois_list |
-            $GOPATH/bin/pup '#registry table' > table.html
+            pup '#registry table' > table.html
       - name: Commit and push if it changed
         run: |-
           git config user.name "Automated"
