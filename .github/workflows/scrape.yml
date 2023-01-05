@@ -1,0 +1,24 @@
+name: scrape
+on:
+  schedule:
+    - "5 4 * * *"
+  workflow_dispatch:
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install pup
+        run: sudo apt install pup
+      - name: Scrape table
+        run: |
+          curl https://cdm.unfccc.int/Registry/vcnotices/eois_list |
+            pup '#registry table' > table.html
+      - name: Commit and push if it changed
+        run: |-
+          git config user.name "Automated"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          timestamp=$(date -u)
+          git commit -m "Latest data: ${timestamp}" || exit 0
+          git push
