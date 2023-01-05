@@ -8,16 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-go@v3
-        with:
-          go-version: '1.14'
-          check-latest: true
       - name: Install pup
-        run: go install github.com/ericchiang/pup
+        run: | 
+          wget https://github.com/ericchiang/pup/releases/download/v0.4.0/pup_v0.4.0_linux_amd64.zip
+          unzip pup_v0.4.0_linux_amd64.zip
       - name: Scrape table
         run: |
           curl https://cdm.unfccc.int/Registry/vcnotices/eois_list |
-            pup '#registry table' > table.html
+            ./pup '#registry table' > table.html
       - name: Commit and push if it changed
         run: |-
           git config user.name "Automated"
