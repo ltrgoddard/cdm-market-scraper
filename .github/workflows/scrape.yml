@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install pup
-        run: sudo apt install pup
+        run: go get github.com/ericchiang/pup
       - name: Scrape table
         run: |
           curl https://cdm.unfccc.int/Registry/vcnotices/eois_list |
