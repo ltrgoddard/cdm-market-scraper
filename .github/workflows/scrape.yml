@@ -13,7 +13,7 @@ jobs:
           go-version: '1.14'
           check-latest: true
       - name: Install pup
-        run: go install github.com/ericchiang/pup@latest
+        run: go install github.com/ericchiang/pup
       - name: Scrape table
         run: |
           curl https://cdm.unfccc.int/Registry/vcnotices/eois_list |
